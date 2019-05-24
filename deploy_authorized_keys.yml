@@ -1,0 +1,18 @@
+---
+# ansible-playbook -i hosts/lamp02 deploy_authorized_keys.yml --ask-pass -u vagrant
+- hosts: all
+  vars:
+    pubkey: "{{ lookup('file', '~/.ssh/id_rsa_ngstigator.pub') }}"
+  tasks:
+  - name: make directory
+    file:
+      path: "/home/vagrant/.ssh"
+      state: directory
+  - name: create empty file
+    file:
+      path: "/home/vagrant/.ssh/authorized_keys"
+      state: touch
+  - name: put pubkey
+    lineinfile:
+      path: "/home/vagrant/.ssh/authorized_keys"
+      line: "{{ pubkey }}"

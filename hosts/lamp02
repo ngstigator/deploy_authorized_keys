@@ -1,0 +1,8 @@
+[webservers]
+192.168.33.20
+
+[lamp02:vars]
+ansible_password=vagrant
+
+[lamp02:children]
+webservers
